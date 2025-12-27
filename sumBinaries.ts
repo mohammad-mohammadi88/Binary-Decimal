@@ -23,17 +23,17 @@ const sumBinaries = (
         binery1 = binery1.slice(0, -1);
         binery2 = binery2.slice(0, -1);
     };
-    const calcSum = (newBinery: string = "", extra: boolean = false) => {
+    const calcSum = (extra: boolean = false): string => {
         const [elem1, elem2] = getLastChars();
-        if (Number.isNaN(elem1) && Number.isNaN(elem2))
-            return (extra ? "1" : "") + newBinery;
+        if (Number.isNaN(elem1) && Number.isNaN(elem2)) return extra ? "1" : "";
 
         removeLastChars();
         const binerySum = (elem1 || 0) + (elem2 || 0) + Number(extra);
 
-        const updatedBinery =
-            (binerySum < base ? binerySum : binerySum - base) + newBinery;
-        return calcSum(updatedBinery, binerySum >= base);
+        return (
+            calcSum(binerySum >= base) +
+            (binerySum < base ? binerySum : binerySum - base)
+        );
     };
     return calcSum();
 };

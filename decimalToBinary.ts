@@ -23,18 +23,15 @@ const decimalToBinary = (decimal: number, base: number = 2): Result => {
         return char;
     };
 
-    const toBinary = (
-        n: number = logarithm(decimal, base),
-        res: string = ""
-    ): string => {
+    const toBinary = (n: number = logarithm(decimal, base)): string => {
         const power = base ** n;
         const count = Math.floor(decimal / power);
 
         decimal -= count * power;
 
-        res += count < 10 ? count : getSingleChar(count);
-        if (n === 0) return res;
-        return toBinary(n - 1, res);
+        const res = count < 10 ? count : getSingleChar(count);
+        if (n === 0) return res.toString();
+        return res + toBinary(n - 1);
     };
     return {
         binary: toBinary(),
